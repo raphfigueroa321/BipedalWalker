@@ -1,0 +1,9 @@
+{
+  "model_dir": "models/PPO_Normalized/20251223-2256/Seed_5",
+  "vecnormalize_path": "models/PPO_Normalized/20251223-2256/Seed_5\\vec_normalize.pkl",
+  "episodes": 1,
+  "max_steps": 2000,
+  "fps": 30,
+  "env_id": "BipedalWalker-v3",
+  "created_at": "20251223-2342"
+}

@@ -1,0 +1,9 @@
+{
+  "model_dir": "models\\PPO_Baseline_V2\\20251223-2324\\Seed_3",
+  "vecnormalize_path": null,
+  "episodes": 1,
+  "max_steps": 2000,
+  "fps": 30,
+  "env_id": "BipedalWalker-v3",
+  "created_at": "20251223-2347"
+}
