@@ -1,1 +1,1 @@
-# BipedalWalkerAISF
+# Bipedal Walker Solution
