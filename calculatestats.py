@@ -2,6 +2,8 @@ import pandas as pd
 import glob
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 
+LOG_DIR = "results/logs"
+
 def get_final_stats(experiment_dir):
     all_rewards = []
     all_lengths = []
@@ -22,7 +24,7 @@ def get_final_stats(experiment_dir):
         all_rewards.append(reward)
         all_lengths.append(length)
     
-    # Calculate Statistics
+    # Calculate statistics
     df = pd.DataFrame({'Reward': all_rewards, 'Length': all_lengths})
     return {
         'Mean Reward': df['Reward'].mean(),
@@ -31,5 +33,5 @@ def get_final_stats(experiment_dir):
     }
 
 # Usage
-stats = get_final_stats("logs/PPO_HullPenaltyV1/20251225-2325")
+stats = get_final_stats(LOG_DIR)
 print(stats)

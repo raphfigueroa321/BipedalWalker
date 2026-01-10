@@ -11,23 +11,12 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
 ENV_ID = "BipedalWalker-v3"
 
-
 def make_env():
-    """Create environment configured for RGB array rendering (no UI window)."""
-
     return gym.make(ENV_ID, render_mode="rgb_array")
 
 
 def build_output_dir(model_dir: str, output_root: str) -> str:
-    """Mirror the models/ layout under a gifs/ root.
-
-    Example:
-        model_dir = "models/PPO_Normalized/20251223-2256/Seed_5"
-        output_root = "gifs"
-    ->  gifs/PPO_Normalized/20251223-2256/Seed_5
-    """
-
-    # If the path starts with "models", strip that so we only keep the experiment path
+    # Strip "models" from file path to mirror file structure in separate "gifs" folder
     rel = os.path.relpath(model_dir, "models") if model_dir.startswith("models") else model_dir
     out_dir = os.path.join(output_root, rel)
     os.makedirs(out_dir, exist_ok=True)
@@ -35,8 +24,6 @@ def build_output_dir(model_dir: str, output_root: str) -> str:
 
 
 def load_env_and_model(model_dir: str):
-    """Load VecNormalize stats (if present) and the PPO model."""
-
     env = DummyVecEnv([make_env])
 
     stats_path = os.path.join(model_dir, "vec_normalize.pkl")
@@ -56,12 +43,6 @@ def load_env_and_model(model_dir: str):
 
 
 def _get_frame(env) -> "object":
-    """Render a single RGB frame from a VecEnv.
-
-    VecEnv.render(mode="rgb_array") may return a list of frames (one per sub-env)
-    or a single array. We always return a single HxWxC array.
-    """
-
     frame = env.render(mode="rgb_array")
     if isinstance(frame, (list, tuple)):
         frame = frame[0]
