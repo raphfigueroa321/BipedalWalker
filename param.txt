@@ -1,0 +1,31 @@
+HullPenalty1 - good, better than leghullpenalty1
+    1M
+    5 Seed
+
+HullPenalty2
+    2M
+    3 Seed
+    env = HullAnglePenaltyWrapper(env, angle_threshold=0.2, penalty_coef=5.0)
+    env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
+
+LegHullPenalty1 - 
+    800K
+    3 Seed
+
+LegHullPenalty2 - 
+    2M
+    3 Seed
+    env = HullAnglePenaltyWrapper(env, angle_threshold=0.2, penalty_coef=5.0)
+    env = LegContactPenaltyWrapper(env, penalty_coef=0.02, sustained_penalty_coef=0.05, sustain_steps=3)
+    env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
+
+Normalized - 
+    2M
+    3 Seed
+    env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
+
+workflow:
+    change parameters
+    record model/param
+    change file path
+    record tensorboard stats, calculate stats, write comparison

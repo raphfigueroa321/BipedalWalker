@@ -95,7 +95,7 @@ def parse_args() -> Tuple[str, str, int, int, int]:
     parser = argparse.ArgumentParser(description="Record GIF(s) of a trained BipedalWalker PPO run.")
     parser.add_argument(
         "model_dir",
-        help="Path to a trained model folder, e.g. models/PPO_Normalized/20251223-2256/Seed_5",
+        help="Path to a trained model folder, e.g. models/PPO_Normalized/2025XXXX-XXXX/Seed_5",
     )
     parser.add_argument(
         "--output-root",

@@ -1,9 +1,9 @@
 {
-  "model_dir": "models/PPO_HullPenaltyV1/20251225-2325/Seed_3",
-  "vecnormalize_path": "models/PPO_HullPenaltyV1/20251225-2325/Seed_3\\vec_normalize.pkl",
+  "model_dir": "models/HullPenaltyV2/20260120-2050/Seed_2",
+  "vecnormalize_path": "models/HullPenaltyV2/20260120-2050/Seed_2\\vec_normalize.pkl",
   "episodes": 1,
-  "max_steps": 600000,
+  "max_steps": 2000,
   "fps": 30,
   "env_id": "BipedalWalker-v3",
-  "created_at": "20260107-1857"
+  "created_at": "20260120-2228"
 }

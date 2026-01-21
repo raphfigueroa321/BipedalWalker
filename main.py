@@ -70,7 +70,7 @@ class LegContactPenaltyWrapper(gym.Wrapper):
                 else:
                     self.contact_counters[i] = 0
 
-            # apply very small penalty only for legs that have been contacting
+            # apply minimal penalty only for legs that have been contacting
             # for at least `sustain_steps` consecutive steps
             sustained_legs = sum(1 for cnt in self.contact_counters if cnt >= self.sustain_steps)
             if sustained_legs:
@@ -78,17 +78,19 @@ class LegContactPenaltyWrapper(gym.Wrapper):
 
         return obs, reward, terminated, truncated, info
 
-EXPERIMENT_NAME = "PPO_LegHullPenaltyV1" # Set to desired experiment name
-TOTAL_TIMESTEPS = 800000
+EXPERIMENT_NAME = "HullPenaltyV2" # Set to desired experiment name
+TOTAL_TIMESTEPS = 2000000
 SEEDS = [1, 2, 3]
 timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M")
-NUM_ENVS = 6 # Number of parallel environments
+NUM_ENVS = 6 # Number of parallel environments, set to # of CPU cores
 
 def make_env(base_seed: int, rank: int):
+
+    # !! Apply wrappers, adjust parameters as necessary !!
     def _init():
         env = gym.make("BipedalWalker-v3")
         env = HullAnglePenaltyWrapper(env, angle_threshold=0.2, penalty_coef=5.0)
-        env = LegContactPenaltyWrapper(env, penalty_coef=0.02, sustained_penalty_coef=0.05, sustain_steps=3)
+        # env = LegContactPenaltyWrapper(env, penalty_coef=0.02, sustained_penalty_coef=0.05, sustain_steps=3)
         env = Monitor(env)
         env.reset(seed=base_seed + rank)
         return env
@@ -105,12 +107,10 @@ def train_seed(seed: int):
     set_random_seed(seed)
     env = SubprocVecEnv([make_env(seed, i) for i in range(NUM_ENVS)])
     env.seed(seed)  # Seeding the vectorized env
-
-    # Normalization Wrapper
     env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
 
-    # Initialize and train model
-    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log="./logs/")
+    # Initialize and train model (set tensorboard log file path as well)
+    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log="./logs/current/")
     model.learn(total_timesteps=TOTAL_TIMESTEPS, tb_log_name=run_path)
 
     # Save model and normalization stats
