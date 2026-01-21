@@ -2,8 +2,8 @@
 
 This repository trains and evaluates PPO agents on the Gymnasium Box2D
 BipedalWalker-v3 environment. It includes training recipes, light reward
-wrappers (hull-angle and leg-contact penalties), utilities to record GIFs,
-visualize runs, and compute final statistics from TensorBoard logs.
+wrappers (hull-angle and leg-contact penalties), and scripts to record GIFs,
+visualize runs, and compute final statistics from TensorBoard logs. This current model can "solve" the normal version and reach 300 points in 1600 time steps.
 
 **Requirements**
 - Python 3.8+ and packages listed in `requirements.txt`.
