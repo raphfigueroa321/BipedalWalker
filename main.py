@@ -90,7 +90,7 @@ def make_env(base_seed: int, rank: int):
     def _init():
         env = gym.make("BipedalWalker-v3")
         env = HullAnglePenaltyWrapper(env, angle_threshold=0.2, penalty_coef=5.0)
-        # env = LegContactPenaltyWrapper(env, penalty_coef=0.02, sustained_penalty_coef=0.05, sustain_steps=3)
+        env = LegContactPenaltyWrapper(env, penalty_coef=0.02, sustained_penalty_coef=0.05, sustain_steps=3)
         env = Monitor(env)
         env.reset(seed=base_seed + rank)
         return env
